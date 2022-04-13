@@ -49,6 +49,8 @@ describe("Testing Game Of Life", () => {
         gameOfLife.setCellAt(0, 1, CellType.LIVING);
         gameOfLife.setCellAt(2, 1, CellType.LIVING);
 
+        gameOfLife.setCellAt(1, 1, CellType.LIVING);
+
         gameOfLife.updateOnce();
 
         expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.LIVING);
@@ -59,8 +61,46 @@ describe("Testing Game Of Life", () => {
         gameOfLife.setCellAt(2, 1, CellType.LIVING);
         gameOfLife.setCellAt(2, 2, CellType.LIVING);
 
+        gameOfLife.setCellAt(1, 1, CellType.LIVING);
+
         gameOfLife.updateOnce();
 
         expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.LIVING);
+    })
+
+    test('should die if more than three neighbors', () => {
+        gameOfLife.setCellAt(0, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 2, CellType.LIVING);
+        gameOfLife.setCellAt(1, 2, CellType.LIVING);
+
+        gameOfLife.setCellAt(1, 1, CellType.LIVING);
+
+        gameOfLife.updateOnce();
+
+        expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.DEAD);
+    })
+
+    test('should revive if three neighbors', () => {
+        gameOfLife.setCellAt(0, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 2, CellType.LIVING);
+
+        gameOfLife.setCellAt(1, 1, CellType.DEAD);
+
+        gameOfLife.updateOnce();
+
+        expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.LIVING);
+    })
+
+    test('should not revive if two neighbors', () => {
+        gameOfLife.setCellAt(0, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 1, CellType.LIVING);
+
+        gameOfLife.setCellAt(1, 1, CellType.DEAD);
+
+        gameOfLife.updateOnce();
+
+        expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.DEAD);
     })
 })
