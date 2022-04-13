@@ -38,6 +38,42 @@ class GameOfLife {
         if (i < 0 || i >= this._rows || j < 0 || j >= this._cols)
             throw new IndexOutOfBoundsError();
     }
+
+    countLiveNeighbors(i, j) {
+        let counter = 0;
+        for (let ii = -1; ii <= 1; ii++) {
+            for (let jj = -1; jj <= 1; jj++) {
+
+                if (ii === 0 && jj === 0)
+                    continue;
+
+                try {
+                    counter += (this._grid[i + ii][j + jj] === CellType.LIVING ? 1 : 0);
+                } catch (e) {
+                }
+            }
+        }
+        return counter;
+    }
+
+    updateOnce() {
+        let nextGrid = this._grid;
+        for (let i = 0; i < this._rows; i++) {
+            for (let j = 0; j < this._cols; j++) {
+                const liveNeighbors = this.countLiveNeighbors(i, j);
+                nextGrid[i][j] = this.predictNextCell(liveNeighbors);
+            }
+        }
+        this._grid = nextGrid;
+    }
+
+    predictNextCell(liveNeighbors) {
+        if (liveNeighbors < 2) {
+            return CellType.DEAD;
+        } else if (liveNeighbors === 2) {
+            return CellType.LIVING;
+        }
+    }
 }
 
 

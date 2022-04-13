@@ -35,4 +35,13 @@ describe("Testing Game Of Life", () => {
     test('should throw error when trying to set outside the grid', () => {
         expect(() => gameOfLife.setCellAt(100, -10)).toThrow(IndexOutOfBoundsError);
     })
+
+    test('should die if less than two neighbors', () => {
+        gameOfLife.setCellAt(0, 1, CellType.LIVING);
+        gameOfLife.setCellAt(1, 1, CellType.LIVING);
+
+        gameOfLife.updateOnce();
+
+        expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.DEAD)
+    })
 })
