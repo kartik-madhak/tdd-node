@@ -1,5 +1,6 @@
 const GameOfLife = require('./../src/gameOfLife')
 const CellType = require("../src/cellTypes");
+const IndexOutOfBoundsError = require("../src/IndexOutOfBoundsError");
 
 describe("Testing Game Of Life", () => {
 
@@ -25,5 +26,9 @@ describe("Testing Game Of Life", () => {
     test('should set a value of a cell', () => {
         gameOfLife.setCellAt(0, 1, CellType.LIVING);
         expect(gameOfLife.getCellAt(0, 1)).toBe(CellType.LIVING)
+    })
+
+    test('should throw error when trying to access outside the grid', () => {
+        expect(() => gameOfLife.getCellAt(1, 10)).toThrow(IndexOutOfBoundsError);
     })
 })

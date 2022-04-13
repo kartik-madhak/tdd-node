@@ -1,4 +1,5 @@
 const CellType = require("./cellTypes");
+const IndexOutOfBoundsError = require("./IndexOutOfBoundsError");
 
 class GameOfLife {
     constructor(rows, cols) {
@@ -24,11 +25,17 @@ class GameOfLife {
     }
 
     getCellAt(i, j) {
+        this.checkBoundary(i, j)
         return this._grid[i][j];
     }
 
     setCellAt(i, j, cellType) {
         this._grid[i][j] = cellType;
+    }
+
+    checkBoundary(i, j) {
+        if (i < 0 || i >= this._rows || j < 0 || j >= this._cols)
+            throw new IndexOutOfBoundsError();
     }
 }
 
