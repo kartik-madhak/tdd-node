@@ -53,4 +53,14 @@ describe("Testing Game Of Life", () => {
 
         expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.LIVING);
     })
+
+    test('should live if three neighbors', () => {
+        gameOfLife.setCellAt(0, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 1, CellType.LIVING);
+        gameOfLife.setCellAt(2, 2, CellType.LIVING);
+
+        gameOfLife.updateOnce();
+
+        expect(gameOfLife.getCellAt(1, 1)).toBe(CellType.LIVING);
+    })
 })
