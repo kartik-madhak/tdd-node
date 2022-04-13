@@ -48,7 +48,7 @@ class GameOfLife {
                     continue;
 
                 try {
-                    counter += (this._grid[i + ii][j + jj] === CellType.LIVING ? 1 : 0);
+                    counter += this._grid[i + ii][j + jj] === CellType.LIVING ? 1 : 0;
                 } catch (e) {
                 }
             }
@@ -57,11 +57,12 @@ class GameOfLife {
     }
 
     updateOnce() {
-        let nextGrid = this._grid;
+        let nextGrid = this._grid.map(arr => arr.slice());
+        nextGrid[2][1] = 4;
         for (let i = 0; i < this._rows; i++) {
             for (let j = 0; j < this._cols; j++) {
                 const liveNeighbors = this.countLiveNeighbors(i, j);
-                nextGrid[i][j] = this.predictNextCell(liveNeighbors);
+                nextGrid[i][j] = this.predictNextCell(liveNeighbors) ?? this._grid[i][j];
             }
         }
         this._grid = nextGrid;
@@ -73,6 +74,7 @@ class GameOfLife {
         } else if (liveNeighbors === 2) {
             return CellType.LIVING;
         }
+        return null;
     }
 }
 
