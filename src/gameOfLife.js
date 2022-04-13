@@ -26,6 +26,10 @@ class GameOfLife {
     getCellAt(i, j) {
         return this._grid[i][j];
     }
+
+    setCellAt(i, j, cellType) {
+        this._grid[i][j] = cellType;
+    }
 }
 
 

@@ -21,4 +21,9 @@ describe("Testing Game Of Life", () => {
     test('should get the default value of cell as dead cell', () => {
         expect(gameOfLife.getCellAt(0, 0)).toBe(CellType.DEAD)
     })
+
+    test('should set a value of a cell', () => {
+        gameOfLife.setCellAt(0, 1, CellType.LIVING);
+        expect(gameOfLife.getCellAt(0, 1)).toBe(CellType.LIVING)
+    })
 })
