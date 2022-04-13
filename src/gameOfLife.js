@@ -30,6 +30,7 @@ class GameOfLife {
     }
 
     setCellAt(i, j, cellType) {
+        this.checkBoundary(i, j)
         this._grid[i][j] = cellType;
     }
 

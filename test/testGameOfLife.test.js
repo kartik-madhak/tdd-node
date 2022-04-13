@@ -31,4 +31,8 @@ describe("Testing Game Of Life", () => {
     test('should throw error when trying to access outside the grid', () => {
         expect(() => gameOfLife.getCellAt(1, 10)).toThrow(IndexOutOfBoundsError);
     })
+
+    test('should throw error when trying to set outside the grid', () => {
+        expect(() => gameOfLife.setCellAt(100, -10)).toThrow(IndexOutOfBoundsError);
+    })
 })
